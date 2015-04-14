@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-client = MongoClient()
+client = MongoClient("localhost", 27017)
 db = client.modoc
-dbOffender = db['db_offender']
-print dbOffender.find_one()
+dbOffender = db.db_offenders
+print [x for x in dbOffender.find()]
