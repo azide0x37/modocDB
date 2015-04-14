@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 class docScraper:
-    def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1230000):
+    def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1100000):
         self._url = url
         self._offenders = _offenders
         self._client = MongoClient("localhost", 27017)
@@ -48,9 +48,14 @@ class docScraper:
             return False
     
     def pull(self):
-        dataset = (self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1229000, self._offenders))
-        returnCode = [self._db_offenders.posts.insert_one(dataset) for x in dataset if dataset == True]
-                  
-         
+        dataset = (self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1000000, self._offenders))
+        
+        for x in dataset:
+            val = dataset.next()
+            if val:
+                self._db_offenders.insert_one(val)
+                print "inserted record"
+                print [x for x in self._db_offenders.find()]      
+
 dataSet = docScraper()
 dataSet.pull()
