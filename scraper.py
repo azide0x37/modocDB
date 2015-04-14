@@ -6,7 +6,7 @@ Offender web search site for offender data.
 Stores in MongoDB collection
 """
 #import lxml #TODO: implement this to speed up parsing
-#import pymongo #get this working
+from pymongo import MongoClient
 import requests
 from bs4 import BeautifulSoup
 
@@ -14,13 +14,15 @@ class docScraper:
     def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1230000):
         self._url = url
         self._offenders = _offenders
-        #self._client = pymongo.MongoClient("localhost", 27017)
-        #self._db_offenders = self._client.db_offenders
+        self._client = MongoClient("localhost", 27017)
+        self._db_modoc = self._client.modoc
+        self._db_offenders = self._db_modoc.db_offenders
 
     def _parse(self, _rawHTML):
-        ##beautiful soup parsing
+        #beautiful soup parsing
         _souped = BeautifulSoup(_rawHTML)
         _table = _souped.find('table', { "class" : "displayTable" })
+        
         try:
             _cols = _table.findAll('tr')
             _data = {}        
@@ -40,16 +42,14 @@ class docScraper:
                 except(ValueError):
                     pass
                 
-            print _data
-                #_key = "".join(td.find(text=True))
-                #_value = "".join(td.findNext(text=True))
-                #_data[_key] = _value
-        
+            return _data
+
         except(AttributeError):
-            pass
+            return False
     
     def pull(self):
-        dataset = [self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1229000, self._offenders)]
+        dataset = (self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1229000, self._offenders))
+        returnCode = [self._db_offenders.posts.insert_one(dataset) for x in dataset if dataset == True]
                   
          
 dataSet = docScraper()
