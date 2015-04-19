@@ -1,0 +1,6 @@
+{
+  "name": "modoc app on Python Flask ",
+  "description": "A test",
+  "repository": "https://github.com/azide0x37/modocDB",
+  "keywords": ["python", "flask"]
+}
