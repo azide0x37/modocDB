@@ -7,5 +7,9 @@ app = Flask(__name__)
 def homepage():
     return "Hello world!"
 
+@app.route('/test/')
+def testpage():
+    return "Test page, get rekt"
+
 if __name__ == "__main__":
     app.run()
