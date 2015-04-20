@@ -7,6 +7,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script><meta name="viewport" content = "width=device-width, initial-scale=1.0">
 <head>
+	<title>{{title}}</title>
 </head>
 
 <body class = "body">
@@ -63,3 +64,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+	<h3>{{ title }}</h3>
+	   <br>
+		{% for p in paragraph %}
+		<p>{{ p }}</p>
+		{% endfor %}
+	 </body>
+
+</html>
