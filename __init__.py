@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import os, sys, logging
 from flask import Flask, render_template
 
