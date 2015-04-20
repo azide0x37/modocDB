@@ -11,7 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 class docScraper:
-    def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1100000):
+    def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1050000):
         self._url = url
         self._offenders = _offenders
         self._client = MongoClient("localhost", 27017)

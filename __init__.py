@@ -5,8 +5,16 @@ app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
+@app.route('/basic')
+def table():
+    return render_template('basic_table.html')
+
 @app.route('/')
-def homepage():
+def indexPage():
+    return render_template('index.html')
+
+@app.route('/main')
+def homePage():
 
     title = "Epic Tutorials"
     paragraph = ["Wow I am learning so much great stuff! Wow I am learning so much great stuff!"]
@@ -16,26 +24,26 @@ def homepage():
     except Exception, e:
         return str(e)
 
-@app.route('/about')
-def aboutpage():
+@app.route('/cal')
+def calPage():
 
     title = "About this site"
     paragraph = ["blah blah blah memememememmeme blah blah memememe"]
 
     pageType = 'about'
 
-    return render_template("main.html", title=title, paragraph=paragraph, pageType=pageType)
+    return render_template("calendar.html", title=title, paragraph=paragraph, pageType=pageType)
 
 
-@app.route('/about/contact')
-def contactPage():
+@app.route('/todo')
+def todoPage():
 
     title = "About this site"
     paragraph = ["blah blah blah memememememmeme blah blah memememe"]
 
     pageType = 'about'
 
-    return render_template("main.html", title=title, paragraph=paragraph, pageType=pageType)
+    return render_template("todo_list.html", title=title, paragraph=paragraph, pageType=pageType)
 
 if __name__ == "__main__":
     app.run()
