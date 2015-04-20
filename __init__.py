@@ -5,9 +5,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return "Hello world!"
+    return render_template('main.html')
 
-@app.route('/test/')
+@app.route('/test')
 def testpage():
     return "Test page, get rekt"
 
