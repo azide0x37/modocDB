@@ -5,10 +5,6 @@ app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
-@app.route('/basic')
-def table():
-    return render_template('basic_table.html')
-
 @app.route('/')
 def indexPage():
     return render_template('index.html')
@@ -23,6 +19,10 @@ def homePage():
         return render_template("main.html", title = title, paragraph=paragraph)
     except Exception, e:
         return str(e)
+
+@app.route('/table')
+def tablePage():
+    return render_template('basic_table.html')
 
 @app.route('/cal')
 def calPage():
