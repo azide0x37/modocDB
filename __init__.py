@@ -7,7 +7,7 @@ app.logger.setLevel(logging.ERROR)
 
 @app.route('/')
 def homepage(table_data = None):
-    return render_template('main.html', table_data='app.json')
+    return render_template('main.html', table_data='http://wenzhixin.net.cn/p/bootstrap-table/docs/data1.json')
 
 @app.route('/test/')
 def testpage():
