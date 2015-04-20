@@ -1,8 +1,9 @@
-import os
-from flask import Flask
-from flask import render_template
+import os, sys, logging
+from flask import Flask, render_template
 
 app = Flask(__name__)
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 
 @app.route('/')
 def homepage():
