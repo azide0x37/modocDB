@@ -1,15 +1,16 @@
 import os
-from flask import Flask, render_template
+from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
 
 @app.route('/')
-def homepage(name=None):
-    return render_template('main.html', name=name)
+def homepage():
+    return render_template('main.html')
 
 @app.route('/test/')
 def testpage():
     return "Test page, get rekt"
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
