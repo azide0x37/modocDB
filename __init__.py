@@ -9,7 +9,7 @@ app.logger.setLevel(logging.ERROR)
 def homepage():
 
     title = "Epic Tutorials"
-    paragraph = ["wow I am learning so much great stuff!wow I am learning so much great stuff!"]
+    paragraph = ["Wow I am learning so much great stuff! Wow I am learning so much great stuff!"]
 
     try:
         return render_template("main.html", title = title, paragraph=paragraph)
