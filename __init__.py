@@ -6,8 +6,8 @@ app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
 @app.route('/')
-def homepage():
-    return render_template('main.html')
+def homepage(table_data = None):
+    return render_template('main.html', table_data='app.json')
 
 @app.route('/test/')
 def testpage():
