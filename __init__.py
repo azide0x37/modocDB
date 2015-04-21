@@ -11,7 +11,7 @@ def indexPage():
     table_data = {'name': "Duck, Donald",
                   'docId': 512073,
                   'assignedLocation': "ERDCC"}
-    try:heroku
+    try:
         return render_template('basic_table.html', title = title, table_data = offenderDB)
     except Exception, e:
         return str(e)
