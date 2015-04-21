@@ -46,4 +46,4 @@ def todoPage():
     return render_template("todo_list.html", title=title, paragraph=paragraph, pageType=pageType)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
