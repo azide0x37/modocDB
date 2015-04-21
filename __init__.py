@@ -7,6 +7,10 @@ app.logger.setLevel(logging.ERROR)
 
 @app.route('/')
 def indexPage():
+    title = "modocDB Offender Search"
+    table_data = {name: "Duck, Donald",
+                  docId: 512073,
+                  assignedLocation: "ERDCC"}
     try:
         return render_template('basic_table.html', title = title, table_data = offenderDB)
     except Exception, e:
@@ -20,7 +24,7 @@ def homePage():
     paragraph = ["Wow I am learning so much great stuff! Wow I am learning so much great stuff!"]
 
     try:
-        return render_template("main.html", title = title, paragraph=paragraph)
+        return render_template("main.html", title = title, paragraph = paragraph)
     except Exception, e:
         return str(e)
 
