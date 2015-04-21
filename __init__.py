@@ -12,7 +12,7 @@ def indexPage():
                   'docId': 512073,
                   'assignedLocation': "ERDCC"}
     try:
-        return render_template('basic_table.html', title = title, table_data = offenderDB)
+        return render_template('basic_table.html', title = title, table_data = None)
     except Exception, e:
         return str(e)
     
