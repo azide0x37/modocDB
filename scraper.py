@@ -7,6 +7,10 @@ Stores in MongoDB collection
 """
 #import lxml #TODO: implement this to speed up parsing
 from pymongo import MongoClient
+
+import os
+import psycopg2
+import urlparse
 import requests
 from bs4 import BeautifulSoup
 
@@ -14,9 +18,16 @@ class docScraper:
     def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1050000):
         self._url = url
         self._offenders = _offenders
-        self._client = MongoClient("localhost", 27017)
-        self._db_modoc = self._client.modoc
-        self._db_offenders = self._db_modoc.db_offenders
+        urlparse.uses_netloc.append("postgres")
+        url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+        self._conn = psycopg2.connect(
+                database = url.path[1:],
+                user = url.username,
+                password = url.password,
+                host = url.hostname,
+                port = url.port
+        )
 
     def _parse(self, _rawHTML):
         #beautiful soup parsing
