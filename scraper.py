@@ -19,14 +19,15 @@ class docScraper:
         self._url = url
         self._offenders = _offenders
         urlparse.uses_netloc.append("postgres")
-        url = urlparse.urlparse(os.environ["DATABASE_URL"])
+        conn_url = urlparse.urlparse(os.environ["DATABASE_URL"])
+        #TODO: Set DATABASE_URL on nitrowagon and neodymium
 
         self._conn = psycopg2.connect(
-                database = url.path[1:],
-                user = url.username,
-                password = url.password,
-                host = url.hostname,
-                port = url.port
+                database = conn_url.path[1:],
+                user = conn_url.username,
+                password = conn_url.password,
+                host = conn_url.hostname,
+                port = conn_url.port
         )
 
     def _parse(self, _rawHTML):
@@ -58,15 +59,21 @@ class docScraper:
         except(AttributeError):
             return False
     
-    def pull(self):
-        dataset = (self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1000000, self._offenders))
-        
-        for x in dataset:
+    def get(self):
+        self._update((self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1000000, self._offenders)))
+        #return link to database
+        return 0
+    
+    def self._update(self, dataset):
+        #TODO: Change this over to psycopg2 insertions
+        #dataset is expected as a generator object
+        for _ in dataset:
             val = dataset.next()
+            #TODO: Check if in database; if not, insert, if so, check if different, if so update
             if val:
                 self._db_offenders.insert_one(val)
                 print "inserted record"
-                print [x for x in self._db_offenders.find()]      
+                print [_ for _ in self._db_offenders.find()]      
 
 dataSet = docScraper()
-dataSet.pull()
+dataSet.get()
