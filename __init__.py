@@ -1,19 +1,21 @@
-import os, sys, logging
+import os, sys, logging,
+import docScraper from scraper
 from flask import Flask, render_template
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
 app.logger.setLevel(logging.ERROR)
 
+dataSet = docScraper() 
+
 @app.route('/')
 @app.route('/index.html')
 def indexPage():
     title = "MO Offender Search"
-    table_data = {'name': "Duck, Donald",
-                  'docId': 512073,
-                  'assignedLocation': "ERDCC"}
+    table_data = dataSet.get()
+    
     try:
-        return render_template('basic_table.html', title = title, table_data = None)
+        return render_template('basic_table.html', title = title, table_data = table_data)
     except Exception, e:
         return str(e)
     
