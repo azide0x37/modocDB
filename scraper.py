@@ -6,8 +6,6 @@ Offender web search site for offender data.
 Stores in MongoDB collection
 """
 #import lxml #TODO: implement this to speed up parsing
-from pymongo import MongoClient
-
 import os
 import psycopg2
 import urlparse
@@ -64,7 +62,7 @@ class docScraper:
         #return link to database
         return 0
     
-    def self._update(self, dataset):
+    def _update(self, dataset):
         #TODO: Change this over to psycopg2 insertions
         #dataset is expected as a generator object
         for _ in dataset:
