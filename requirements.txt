@@ -1,4 +1,10 @@
-Fabric==1.8.3
+Django==1.7
+dj-database-url==0.3.0
+dj-static==0.0.6
+gunicorn==19.1.1
+psycopg2==2.5.1
+static==0.4
+wsgiref==0.1.2
 Flask==0.10.1
 Jinja2==2.7.2
 Werkzeug==0.9.4
@@ -6,3 +12,4 @@ beautifulsoup4==4.3.2
 psycopg2==2.5.3
 requests==2.6.1
 wsgiref==0.1.2
+gunicorn==
