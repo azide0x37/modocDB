@@ -63,7 +63,6 @@ class docScraper:
     
     def _update(self, dataset):
 		return dataset
-
 		"""
 		#TODO: Change this over to psycopg2 insertions
         #dataset is expected as a generator object
@@ -75,5 +74,3 @@ class docScraper:
                 print "inserted record"
                 print [_ for _ in self._db_offenders.find()]
 		"""
-dataSet = docScraper()
-print dataSet.get()
