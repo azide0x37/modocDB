@@ -76,4 +76,4 @@ class docScraper:
                 print [_ for _ in self._db_offenders.find()]
 		"""
 dataSet = docScraper()
-dataSet.get()
+print dataSet.get()
