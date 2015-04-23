@@ -1,5 +1,5 @@
-import os, sys, logging,
-import docScraper from scraper
+import os, sys, logging
+from scraper import docScraper
 from flask import Flask, render_template
 
 app = Flask(__name__)
