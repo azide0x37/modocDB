@@ -13,7 +13,7 @@ import requests
 from bs4 import BeautifulSoup
 
 class docScraper:
-    def __init__(self, offenders = 1050000):
+    def __init__(self, offenders = 1250000):
         self._url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do"
         self._offenders = offenders
         urlparse.uses_netloc.append("postgres")
@@ -58,12 +58,13 @@ class docScraper:
             return False
     
     def get(self):
-        self._update((self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1000000, self._offenders)))
+        self._update((self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1250050, self._offenders)))
         #return link to database
         return 0
     
     def _update(self, dataset):
-        #TODO: Change this over to psycopg2 insertions
+        """
+		#TODO: Change this over to psycopg2 insertions
         #dataset is expected as a generator object
         for _ in dataset:
             val = dataset.next()
@@ -71,7 +72,9 @@ class docScraper:
             if val:
                 self._db_offenders.insert_one(val)
                 print "inserted record"
-                print [_ for _ in self._db_offenders.find()]      
-
+                print [_ for _ in self._db_offenders.find()]
+		"""
+		print dataset
+		
 dataSet = docScraper()
 dataSet.get()
