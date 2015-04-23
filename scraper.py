@@ -13,11 +13,11 @@ import requests
 from bs4 import BeautifulSoup
 
 class docScraper:
-    def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1050000):
-        self._url = url
-        self._offenders = _offenders
+    def __init__(self, offenders = 1050000):
+        self._url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do"
+        self._offenders = offenders
         urlparse.uses_netloc.append("postgres")
-        conn_url = urlparse.urlparse(os.environ["DATABASE_URL"])
+        conn_url = urlparse.urlparse(os.environ["HEROKU_POSTGRESQL_GRAY_URL"])
         #TODO: Set DATABASE_URL on nitrowagon and neodymium
 
         self._conn = psycopg2.connect(
