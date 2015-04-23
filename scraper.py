@@ -16,23 +16,12 @@ class docScraper:
     def __init__(self, offenders = 1250000):
         self._url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do"
         self._offenders = offenders
-        urlparse.uses_netloc.append("postgres")
-        conn_url = urlparse.urlparse(os.environ["HEROKU_POSTGRESQL_GRAY_URL"])
-        #TODO: Set DATABASE_URL on nitrowagon and neodymium
-
-        self._conn = psycopg2.connect(
-                database = conn_url.path[1:],
-                user = conn_url.username,
-                password = conn_url.password,
-                host = conn_url.hostname,
-                port = conn_url.port
-        )
 
     def _parse(self, _rawHTML):
         #beautiful soup parsing
         _souped = BeautifulSoup(_rawHTML)
         _table = _souped.find('table', { "class" : "displayTable" })
-        
+        print _table
         try:
             _cols = _table.findAll('tr')
             _data = {}        
@@ -62,15 +51,9 @@ class docScraper:
         #return link to database
     
     def _update(self, dataset):
-		return dataset
-		"""
 		#TODO: Change this over to psycopg2 insertions
         #dataset is expected as a generator object
-        for _ in dataset:
-            val = dataset.next()
-            #TODO: Check if in database; if not, insert, if so, check if different, if so update
-            if val:
-                self._db_offenders.insert_one(val)
-                print "inserted record"
-                print [_ for _ in self._db_offenders.find()]
-		"""
+		return [_ for _ in dataset]
+
+data = docScraper()
+print data.get()
