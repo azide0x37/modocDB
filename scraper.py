@@ -29,6 +29,7 @@ class docScraper:
         )
 
     def _parse(self, _rawHTML):
+		"""
         #beautiful soup parsing
         _souped = BeautifulSoup(_rawHTML)
         _table = _souped.find('table', { "class" : "displayTable" })
@@ -56,7 +57,8 @@ class docScraper:
 
         except(AttributeError):
             return False
-    
+    	"""
+		return "23"
     def get(self):
         self._update((self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1250050, self._offenders)))
         #return link to database
