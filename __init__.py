@@ -17,10 +17,9 @@ def indexPage():
     except Exception, e:
         return str(e)
     
-
+@app.route('/main')
 @app.route('/main.html')
 def homePage():
-
     title = "Epic Tutorials"
     paragraph = ["Wow I am learning so much great stuff! Wow I am learning so much great stuff!"]
 
@@ -29,11 +28,12 @@ def homePage():
     except Exception, e:
         return str(e)
 
+@app.route('/basic_table')
 @app.route('/basic_table.html')
 def tablePage():
-	
     return render_template('basic_table.html')
 
+@app.route('/cal')
 @app.route('/calendar.html')
 def calPage():
 
@@ -44,6 +44,8 @@ def calPage():
 
     return render_template("calendar.html", title=title, paragraph=paragraph, pageType=pageType)
 
+
+@app.route('/todo')
 @app.route('/todo_list.html')
 def todoPage():
 
