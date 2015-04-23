@@ -1,1 +1,1 @@
-web: newrelic-admin run-program python manage.py gunicorn __init__:app --log-file=-
+web: newrelic-admin run-program gunicorn __init__:app --log-file=-
