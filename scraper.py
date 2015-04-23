@@ -59,6 +59,7 @@ class docScraper:
             return False
     	"""
 		return "23"
+	
     def get(self):
         self._update((self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1250050, self._offenders)))
         #return link to database
@@ -76,7 +77,6 @@ class docScraper:
                 print "inserted record"
                 print [_ for _ in self._db_offenders.find()]
 		"""
-		print dataset
-		
+		return 0		
 dataSet = docScraper()
 dataSet.get()
