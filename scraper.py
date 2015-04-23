@@ -7,6 +7,10 @@ Stores in MongoDB collection
 """
 #import lxml #TODO: implement this to speed up parsing
 from pymongo import MongoClient
+
+import os
+import psycopg2
+import urlparse
 import requests
 from bs4 import BeautifulSoup
 
@@ -14,9 +18,17 @@ class docScraper:
     def __init__(self, url = "https://web.mo.gov/doc/offSearchWeb/searchOffender.do", _offenders = 1050000):
         self._url = url
         self._offenders = _offenders
-        self._client = MongoClient("localhost", 27017)
-        self._db_modoc = self._client.modoc
-        self._db_offenders = self._db_modoc.db_offenders
+        urlparse.uses_netloc.append("postgres")
+        conn_url = urlparse.urlparse(os.environ["DATABASE_URL"])
+        #TODO: Set DATABASE_URL on nitrowagon and neodymium
+
+        self._conn = psycopg2.connect(
+                database = conn_url.path[1:],
+                user = conn_url.username,
+                password = conn_url.password,
+                host = conn_url.hostname,
+                port = conn_url.port
+        )
 
     def _parse(self, _rawHTML):
         #beautiful soup parsing
@@ -47,15 +59,21 @@ class docScraper:
         except(AttributeError):
             return False
     
-    def pull(self):
-        dataset = (self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1000000, self._offenders))
-        
-        for x in dataset:
+    def get(self):
+        self._update((self._parse(requests.get(self._url + "?docId=" + str(docId)).text) for docId in xrange(1000000, self._offenders)))
+        #return link to database
+        return 0
+    
+    def self._update(self, dataset):
+        #TODO: Change this over to psycopg2 insertions
+        #dataset is expected as a generator object
+        for _ in dataset:
             val = dataset.next()
+            #TODO: Check if in database; if not, insert, if so, check if different, if so update
             if val:
                 self._db_offenders.insert_one(val)
                 print "inserted record"
-                print [x for x in self._db_offenders.find()]      
+                print [_ for _ in self._db_offenders.find()]      
 
 dataSet = docScraper()
-dataSet.pull()
+dataSet.get()
