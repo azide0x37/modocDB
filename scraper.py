@@ -8,7 +8,6 @@ Stores in MongoDB collection
 #import lxml #TODO: implement this to speed up parsing
 import os
 import psycopg2
-import urlparse
 import requests
 from bs4 import BeautifulSoup
 
@@ -53,7 +52,9 @@ class docScraper:
     def _update(self, dataset):
 		#TODO: Change this over to psycopg2 insertions
         #dataset is expected as a generator object
-		return [_ for _ in dataset]
-
+		return 0
+  
+"""
 data = docScraper()
 print data.get()
+"""

@@ -1,10 +1,5 @@
 import os, sys, logging
-from scraper import docScraper
 from flask import Flask, render_template
-
-app = Flask(__name__)
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
 
 dataSet = docScraper() 
 
