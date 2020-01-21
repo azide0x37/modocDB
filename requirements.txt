@@ -4,7 +4,7 @@ gunicorn==19.3.0
 static==0.4
 Flask==0.10.1
 Jinja2==2.7.2
-Werkzeug==0.9.4
+Werkzeug==0.15.3
 beautifulsoup4==4.3.2
 psycopg2==2.5.3
 requests==2.20.0
