@@ -1,6 +1,6 @@
 newrelic==2.50.0.39
 Django==1.7
-gunicorn==19.3.0
+gunicorn==19.5.0
 static==0.4
 Flask==0.10.1
 Jinja2==2.7.2
