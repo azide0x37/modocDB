@@ -7,5 +7,5 @@ Jinja2==2.7.2
 Werkzeug==0.9.4
 beautifulsoup4==4.3.2
 psycopg2==2.5.3
-requests==2.6.1
+requests==2.20.0
 wsgiref==0.1.2
