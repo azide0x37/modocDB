@@ -3,7 +3,7 @@ Django==1.7
 gunicorn==19.5.0
 static==0.4
 Flask==1.0
-Jinja2==2.7.2
+Jinja2==2.11.3
 Werkzeug==0.15.3
 beautifulsoup4==4.3.2
 psycopg2==2.5.3
